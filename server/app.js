@@ -5,9 +5,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const compression = require("compression");
-const { isProduction } = require("./config");
+const { isProduction } = require("./utils");
 const router = require("./router");
-const dbConnection = require("./db/connect");
 
 const app = express();
 
@@ -15,8 +14,6 @@ require("dotenv").config("./.env");
 
 app.use(compression());
 
-// connect to DB
-dbConnection();
 
 app.use(logger("dev"));
 app.use(express.json());

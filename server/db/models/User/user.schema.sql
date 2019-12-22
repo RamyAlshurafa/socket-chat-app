@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS users CASCADE;
+
+CREATE TABLE users(
+  id serial PRIMARY KEY,
+  email VARCHAR (50) UNIQUE NOT NULL,
+  first_name VARCHAR (50) UNIQUE NOT NULL,
+  last_name VARCHAR (50) UNIQUE NOT NULL,
+  avatar TEXT,
+  password TEXT NOT NULL,
+  created_at DATE NOT NULL DEFAULT CURRENT_DATE
+)
