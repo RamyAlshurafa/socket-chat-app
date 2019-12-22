@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/index.js",
-    "dev": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/index.js\""
+    "dev": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/index.js\"",
+    "build:schema": "NODE_ENV=development node server/db/models/index.js"
   },
   "repository": {
     "type": "git",
@@ -28,9 +29,11 @@
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.1",
     "morgan": "^1.9.1",
+    "pg": "^7.15.1",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
