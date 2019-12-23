@@ -1,24 +1,10 @@
-const fs = require("fs");
-const { getClient } = require("./../../index");
+const { readSqlFile } = require("./../../index");
 
 const User = () => {
-  const buildTable = async () => {
-    const sql = fs.readFileSync(`${__dirname}/user.schema.sql`).toString();
+  const buildTable = async () => readSqlFile(`${__dirname}/user.schema.sql`);
 
-    const client = await getClient();
-    await client.query(sql);
-    await client.release();
-    console.log("done: User - build schema");
-  };
+  const seed = async () => readSqlFile(`${__dirname}/user.seeds.sql`);
 
-  const seed = async () => {
-    const sql = fs.readFileSync(`${__dirname}/user.seeds.sql`).toString();
-
-    const client = await getClient();
-    await client.query(sql);
-    await client.release();
-    console.log("done: User - seed");
-  };
 
   return Object.freeze({
     buildTable,
