@@ -1,16 +1,29 @@
 import React from "react";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import Chat from "./pages/Chat";
+
 import "./App.css";
 import "./style.scss";
-import UsersList from "./components/UsersList";
-import Chat from "./components/Chat";
 
 function App() {
   return (
     <div className="App">
       <div className="container clearfix">
-        <UsersList />
+        <Router>
+          <Switch>
+            <Router exact path="/">
+              <Chat />
+            </Router>
 
-        <Chat />
+            <Router exact path="/login">
+              <h1>Login</h1>
+            </Router>
+
+            <Router>
+              <h1>Login2</h1>
+            </Router>
+          </Switch>
+        </Router>
       </div>
     </div>
   );
