@@ -1,6 +1,6 @@
 const User = require("./../models/User")();
 const Message = require("./../models/Message")();
-
+const MessageRecipient = require("./../models/MessageRecipient")();
 
 (() => {
   const sequenceFunctions = [
@@ -8,6 +8,8 @@ const Message = require("./../models/Message")();
     User.seed,
     Message.buildTable,
     Message.seed,
+    MessageRecipient.buildTable,
+    MessageRecipient.seed,
   ];
 
 
