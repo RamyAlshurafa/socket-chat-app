@@ -1,4 +1,3 @@
-
 const getUsers = ({
   userDB,
   convertToCamalCase,

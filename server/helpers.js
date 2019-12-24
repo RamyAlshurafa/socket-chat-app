@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken");
+const { server: serverConfig } = require("./config");
+
 const snakeToCamel = (str) => str.replace(
   /([-_][a-z])/g,
   (group) => group.toUpperCase()
@@ -24,6 +27,12 @@ const convertToCamalCase = (input) => {
 };
 
 
+const createToken = ({ id }) => jwt.sign({ id }, serverConfig.secret, {
+  expiresIn: serverConfig.tokenMaxAgeString,
+});
+
+
 module.exports = {
   convertToCamalCase,
+  createToken,
 };

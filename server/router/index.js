@@ -1,7 +1,10 @@
 const router = require("express").Router();
-const { getUsers } = require("./../controllers/user");
+
+const { getUsers, checkLogin } = require("./../controllers/user");
+
 const makeExpressCallback = require("./../make-express-callback");
 
-router.use("/users", makeExpressCallback(getUsers));
+router.post("/users/login", makeExpressCallback(checkLogin));
+router.get("/users", makeExpressCallback(getUsers));
 
 module.exports = router;

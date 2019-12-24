@@ -1,10 +1,15 @@
 const makeGetUsers = require("./getUsers");
-// require use cases
+const makeCheckLogin = require("./checkLogin");
+
 const {
   user:
-  { getUsers },
+  {
+    getUsers,
+    checkUserLogin,
+  },
 } = require("./../../use-cases/index");
 
 module.exports = Object.freeze({
   getUsers: makeGetUsers({ getUsers }),
+  checkLogin: makeCheckLogin({ checkUserLogin }),
 });
