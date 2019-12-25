@@ -4,10 +4,10 @@ import Header from "./Header";
 import ChatHistory from "./ChatHistory";
 import ChatMessageSendBox from "./ChatMessageSendBox";
 
-export default () => {
+export default ({ selectedUser }) => {
   return (
     <div className="chat">
-      <Header />
+      <Header user={selectedUser} />
       <ChatHistory />
       <ChatMessageSendBox />
     </div>
