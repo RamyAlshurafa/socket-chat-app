@@ -1,6 +1,6 @@
 module.exports = ({ getMessagesBetweenTwoUsers }) => async (httpRequest) => {
   try {
-    const { fromId, toId } = httpRequest.params;
+    const { fromId, toId } = httpRequest.query;
 
     const messages = await getMessagesBetweenTwoUsers({ fromId, toId });
     return {

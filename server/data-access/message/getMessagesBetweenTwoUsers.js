@@ -12,9 +12,9 @@ const getMessagesBetweenTwoUsers = async ({ fromId, toId }) => {
                   ON message_recipient.message_id = message.id
                 WHERE
                    message_recipient.recipient_id = $1
-                OR message.user_id = $2
+                AND message.user_id = $2
                 OR message_recipient.recipient_id = $2
-                OR message.user_id = $1`;
+                AND message.user_id = $1`;
   const values = [fromId, toId];
 
   const res = await query(text, values);
