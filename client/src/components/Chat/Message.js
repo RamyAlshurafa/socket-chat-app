@@ -1,15 +1,22 @@
 import React from "react";
 
-export default () => {
+export default ({ createdAt, FromFirstName, ToFirstName, body, sent }) => {
   return (
     <li className="clearfix">
-      <div className="message-data align-right">
-        <span className="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;
-        <span className="message-data-name">Olia</span>{" "}
-        <i className="fa fa-circle me" />
+      <div className={`message-data ${sent ? "" : "align-right"}`}>
+        {/* TODO use moment to get time in `10:10 AM, Today` shape */}
+        <span className="message-data-time">{createdAt}</span> &nbsp; &nbsp;
+        <span className="message-data-name">
+          {sent ? FromFirstName : ToFirstName}
+        </span>
+        <i className={`fa fa-circle ${sent ? "me" : ""}`} />
       </div>
-      <div className="message other-message float-right">
-        Hi Vincent, how are you? How is the project coming along?
+      <div
+        className={`message ${
+          sent ? "my-message" : "other-message float-right"
+        }`}
+      >
+        {body}
       </div>
     </li>
   );

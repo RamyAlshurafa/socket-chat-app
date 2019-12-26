@@ -1,72 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-export default () => {
+import Message from "./Message";
+
+const { CancelToken } = axios;
+
+export default ({ fromUserId, toUserId, ToFirstName, FromFirstName }) => {
+  const [messages, setMessages] = useState([]);
+  const fetchMessages = async ({ fromId, toId, source }) => {
+    try {
+      const { data } = await axios.get("/api/messages/private", {
+        params: {
+          fromId,
+          toId,
+        },
+        cancelToken: source.token,
+      });
+      setMessages(data);
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        console.log("Request canceled");
+      } else {
+        console.log("error", error);
+      }
+    }
+  };
+  useEffect(() => {
+    const source = CancelToken.source();
+
+    fetchMessages({ fromId: fromUserId, toId: toUserId, source });
+  }, [fromUserId, toUserId]);
+
   return (
     <div className="chat-history">
       <ul>
-        <li className="clearfix">
-          <div className="message-data align-right">
-            <span className="message-data-time">10:10 AM, Today</span> &nbsp;
-            &nbsp;
-            <span className="message-data-name">Olia</span>{" "}
-            <i className="fa fa-circle me" />
-          </div>
-          <div className="message other-message float-right">
-            Hi Vincent, how are you? How is the project coming along?
-          </div>
-        </li>
-
-        <li>
-          <div className="message-data">
-            <span className="message-data-name">
-              <i className="fa fa-circle online" /> Vincent
-            </span>
-            <span className="message-data-time">10:12 AM, Today</span>
-          </div>
-          <div className="message my-message">
-            Are we meeting today? Project has been already finished and I have
-            results to show you.
-          </div>
-        </li>
-
-        <li className="clearfix">
-          <div className="message-data align-right">
-            <span className="message-data-time">10:14 AM, Today</span> &nbsp;
-            &nbsp;
-            <span className="message-data-name">Olia</span>{" "}
-            <i className="fa fa-circle me" />
-          </div>
-          <div className="message other-message float-right">
-            Well I am not sure. The rest of the team is not here yet. Maybe in
-            an hour or so? Have you faced any problems at the last phase of the
-            project?
-          </div>
-        </li>
-
-        <li>
-          <div className="message-data">
-            <span className="message-data-name">
-              <i className="fa fa-circle online" /> Vincent
-            </span>
-            <span className="message-data-time">10:20 AM, Today</span>
-          </div>
-          <div className="message my-message">
-            Actually everything was fine. I&apos;m very excited to show this to
-            our team.
-          </div>
-        </li>
-
-        <li>
-          <div className="message-data">
-            <span className="message-data-name">
-              <i className="fa fa-circle online" /> Vincent
-            </span>
-            <span className="message-data-time">10:31 AM, Today</span>
-          </div>
-          <i className="fa fa-circle online" />
-          <i className="fa fa-circle online" style={{ color: "AED2A6" }} />
-          <i className="fa fa-circle online" style={{ color: "#DAE9DA" }} />
-        </li>
+        {messages.map(message => (
+          <Message
+            sent={message.fromId === fromUserId}
+            createdAt={message.createdAt}
+            body={message.body}
+            FromFirstName={FromFirstName}
+            ToFirstName={ToFirstName}
+          />
+        ))}
       </ul>
     </div>
   );

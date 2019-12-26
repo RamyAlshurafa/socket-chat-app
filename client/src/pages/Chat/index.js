@@ -31,10 +31,18 @@ function Chat({ userInfo }) {
     return source.cancel;
   }, []);
 
+  const toUser = selectedUser || users[0] || {};
+
   return (
     <div className="container clearfix">
       <UsersList setSelectedUser={setSelectedUser} users={users} />
-      <ChatSection selectedUser={selectedUser || users[0] || {}} />
+      <ChatSection
+        selectedUser={toUser}
+        fromUserId={userInfo.id}
+        toUserId={toUser.id}
+        ToFirstName={toUser.firstName}
+        FromFirstName={userInfo.firstName}
+      />
     </div>
   );
 }
