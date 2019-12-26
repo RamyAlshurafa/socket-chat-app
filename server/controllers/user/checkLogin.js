@@ -1,5 +1,5 @@
 
-module.exports = ({ checkUserLogin }) => async (httpRequest) => {
+module.exports = ({ checkUserLogin, tokenName }) => async (httpRequest) => {
   try {
     const { email, password } = httpRequest.body;
 
@@ -10,7 +10,7 @@ module.exports = ({ checkUserLogin }) => async (httpRequest) => {
       statusCode: 200,
       cookies: [
         {
-          name: "token",
+          name: tokenName,
           value: token,
         },
       ],

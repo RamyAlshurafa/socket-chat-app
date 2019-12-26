@@ -1,6 +1,7 @@
 const makeGetUsers = require("./getUsers");
 const makeCheckLogin = require("./checkLogin");
 const makeGetUserInfo = require("./getUserInfo");
+const makeCheckUserAuth = require("./checkUserAuth");
 
 
 const {
@@ -13,6 +14,7 @@ const {
 
 module.exports = Object.freeze({
   getUsers: makeGetUsers({ getUsers }),
-  checkLogin: makeCheckLogin({ checkUserLogin }),
+  checkLogin: (tokenName) => makeCheckLogin({ checkUserLogin, tokenName }),
   getUserInfo: makeGetUserInfo({ getUserInfo }),
+  checkUserAuth: makeCheckUserAuth({ getUserInfo }),
 });
