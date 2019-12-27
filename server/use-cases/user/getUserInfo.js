@@ -2,7 +2,7 @@ const getUserInfo = ({
   userDB,
   convertToCamalCase,
 }) => async ({ id }) => {
-  const [user] = convertToCamalCase(await userDB.getUserById({ id }));
+  const user = convertToCamalCase(await userDB.getUserById({ id }));
 
   if (!user) {
     // TODO - create error class

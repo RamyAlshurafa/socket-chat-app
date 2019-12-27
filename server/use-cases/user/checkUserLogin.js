@@ -16,7 +16,7 @@ const checkUserLogin = ({
     throw new Error("NOT_FOUND");
   }
 
-  const token = createToken({ id: user.id });
+  const token = createToken({ userId: user.id });
 
   user.password = undefined;
 

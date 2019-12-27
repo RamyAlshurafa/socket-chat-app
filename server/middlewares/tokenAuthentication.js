@@ -19,7 +19,11 @@ module.exports = ({
       throw new Error("unvalid token");
     }
     const decoded = verify(token, secret);
-    return decoded;
+
+    return {
+      ...httpRequest,
+      ...decoded,
+    };
   } catch (error) {
     throw new Error("unvalid token");
   }

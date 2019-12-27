@@ -1,6 +1,6 @@
 module.exports = ({ getUserInfo }) => async (httpRequest) => {
   try {
-    const { id } = httpRequest.params;
+    const { id } = httpRequest.user;
     const userInfo = await getUserInfo({ id });
 
     return {
