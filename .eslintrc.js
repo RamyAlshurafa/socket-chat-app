@@ -5,7 +5,7 @@ module.exports = {
     node: true,
     jest: true
   },
-  extends: ['airbnb-base'],
+  extends: ['airbnb-base', "plugin:cypress/recommended"],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
@@ -22,4 +22,7 @@ module.exports = {
     "no-underscore-dangle": [0],
     "linebreak-style": 0
   },
+  plugins: [
+    "cypress"
+  ]
 };

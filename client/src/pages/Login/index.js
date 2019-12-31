@@ -38,14 +38,18 @@ function Login({ setIsAuthenticated, setUserInfo, history }) {
             placeholder="email"
             value={email}
             onChange={setEmail}
+            name="email"
           />
           <Input
             type="password"
             placeholder="password"
             value={password}
             onChange={setPassword}
+            name="password"
           />
-          <Button type="submit">login</Button>
+          <Button type="submit" name="submit">
+            login
+          </Button>
           <Paragraph className="message">
             Not registered? <Anchor href="#">Create an account</Anchor>
           </Paragraph>

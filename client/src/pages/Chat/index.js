@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import axios from "axios";
 import UsersList from "../../components/UsersList";
@@ -11,25 +11,29 @@ function Chat({ userInfo }) {
 
   const [users, setUsers] = useState([]);
 
-  const fetUsers = async source => {
-    try {
-      const { data } = await axios.get("/api/users", {
-        cancelToken: source.token,
-      });
-      setUsers(data.filter(freind => freind.id !== userInfo.id));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("Request canceled");
-      } else {
-        console.log("error", error);
+  const fetchUsers = useCallback(
+    async source => {
+      try {
+        const { data } = await axios.get("/api/users", {
+          cancelToken: source.token,
+        });
+        setUsers(data.filter(freind => freind.id !== userInfo.id));
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request canceled");
+        } else {
+          console.log("error", error);
+        }
       }
-    }
-  };
+    },
+    [userInfo.id]
+  );
+
   useEffect(() => {
     const source = CancelToken.source();
-    fetUsers(source);
+    fetchUsers(source);
     return source.cancel;
-  }, []);
+  }, [fetchUsers]);
 
   const toUser = selectedUser || users[0] || {};
 

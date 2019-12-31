@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ type, className, placeholder, value, onChange }) => {
+const Input = ({ type, className, placeholder, value, onChange, name }) => {
   const onInputChange = event => {
     onChange(event.target.value);
   };
@@ -12,6 +12,7 @@ const Input = ({ type, className, placeholder, value, onChange }) => {
       className={className}
       onChange={onInputChange}
       value={value}
+      data-test-id={name}
     />
   );
 };

@@ -20,6 +20,6 @@ const MessageRecipient = require("./../models/MessageRecipient")();
   sequenceFunctions.forEach((func) => {
     sequence = sequence.then(() => func().then((res) => {
       doneFunctions.push(res);
-    }));
+    })).catch(console.log);
   });
 })();
