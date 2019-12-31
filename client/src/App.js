@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
+
+import axios from "axios";
 
 import Login from "./pages/Login";
 import Chat from "./pages/Chat";
@@ -15,6 +17,20 @@ import "./style.scss";
 function App() {
   const [userInfo, setUserInfo] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const fetchUserInfo = async () => {
+    try {
+      const { data } = await axios.get("/api/users/auth");
+      setUserInfo(data);
+      setIsAuthenticated(true);
+    } catch (error) {
+      setIsAuthenticated(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
 
   return (
     <div className="App">
@@ -31,13 +47,17 @@ function App() {
           <Route
             exact
             path="/login"
-            component={({ history }) => (
-              <Login
-                setUserInfo={setUserInfo}
-                setIsAuthenticated={setIsAuthenticated}
-                history={history}
-              />
-            )}
+            component={({ history }) =>
+              !isAuthenticated ? (
+                <Login
+                  setUserInfo={setUserInfo}
+                  setIsAuthenticated={setIsAuthenticated}
+                  history={history}
+                />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
           />
 
           <Route>
