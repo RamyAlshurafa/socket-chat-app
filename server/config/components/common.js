@@ -7,9 +7,11 @@ const envVarsSchema = joi.object({
 }).unknown()
   .required();
 
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
 const { error, value: envVars } = joi.validate(process.env, envVarsSchema);
 
 if (error) {
+  console.error(error);
   throw new Error(`Config validation error: ${error.message}`);
 }
 

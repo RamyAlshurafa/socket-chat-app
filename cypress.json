@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://localhost:3001",
+  "integrationFolder": "./client/src/",
+  "testFiles": "./**/*.spec.js",
+  "env": {
+    "ELECTRON_ENABLE_LOGGING": "1"
+  },
+  "projectId": "hhnkux"
+}

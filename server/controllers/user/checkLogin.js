@@ -16,6 +16,7 @@ module.exports = ({ checkUserLogin, tokenName }) => async (httpRequest) => {
       ],
     };
   } catch (error) {
+    console.log(error);
     return {
       statusCode: 400,
       body: {

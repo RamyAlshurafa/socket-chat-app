@@ -3,11 +3,19 @@
   "version": "1.0.0",
   "description": "chat app using socket.io",
   "main": "index.js",
+  "env": {
+    "cypress/globals": true
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "start-server-and-test 'start-test' http://localhost:3001 'cy:run'",
     "start": "node ./server/index.js",
     "dev": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/index.js\"",
-    "build:schema": "NODE_ENV=development node server/db/models/index.js"
+    "build:schema": "node server/db/models/index.js",
+    "start-test": "PORT=3001 REACT_APP_REACT_ENV=test concurrently --kill-others-on-fail --kill-others --success first \"cd client && npm start\" \"PORT=3002 NODE_ENV=test node ./server/index.js\"",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --record --key 6709e119-ff61-4628-8e96-9531b9faa47a",
+    "client:init": "cd client && npm i",
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",
@@ -27,6 +35,7 @@
     "compression": "^1.7.4",
     "cookie": "^0.4.0",
     "cookie-parser": "^1.4.4",
+    "cypress": "^3.8.1",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -35,7 +44,8 @@
     "mongoose": "^5.8.1",
     "morgan": "^1.9.1",
     "pg": "^7.15.1",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "start-server-and-test": "^1.10.6"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
@@ -44,6 +54,7 @@
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-cypress": "^2.8.1",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
