@@ -7,7 +7,7 @@
     "cypress/globals": true
   },
   "scripts": {
-    "test": "start-server-and-test 'start-test' http://localhost:3001 'cy:run'",
+    "test:front": "start-server-and-test 'start-test' http://localhost:3001 'cy:run'",
     "start": "node ./server/index.js",
     "dev": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/index.js\"",
     "build:schema": "node server/db/models/index.js",
@@ -15,7 +15,8 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run --record --key 6709e119-ff61-4628-8e96-9531b9faa47a",
     "client:init": "cd client && npm i",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm run build",
+    "test:back": "mocha ./server/**/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -60,6 +61,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "mocha": "^6.2.2",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
   }
