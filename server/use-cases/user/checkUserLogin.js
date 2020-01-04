@@ -1,11 +1,11 @@
 const checkUserLogin = ({
-  userDB,
+  User,
   convertToCamalCase,
   createToken,
 }) => async ({ email, password }) => {
   // TODO use convertToCamalCase in data-access level
   // so data return from database same
-  const [user] = convertToCamalCase(await userDB.getUserByEmail({ email }));
+  const [user] = convertToCamalCase(await User.getUserByEmail({ email }));
 
   if (!user) {
     // TODO - create error class

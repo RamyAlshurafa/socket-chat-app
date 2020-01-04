@@ -1,4 +1,4 @@
-const { query } = require("../../db/index");
+const { query } = require("../../db/postgreSQL");
 
 const getUserById = async ({ id }) => {
   const text = "SELECT * FROM users WHERE id=$1";
