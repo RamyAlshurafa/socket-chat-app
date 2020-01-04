@@ -4,8 +4,9 @@ const { tokenAuthentication, getUserInfo: makeGetUserInfoMiddleware } = require(
 const {
   getUsers, checkLogin, getUserInfo, checkUserAuth,
 } = require("./../controllers/user");
+const { getMessagesBetweenTwoUsers, sendPrivateMessage } = require("./../controllers/message");
+
 const { user: { getUserInfo: getUserInfoUseCase } } = require("./../use-cases");
-const { getMessagesBetweenTwoUsers } = require("./../controllers/message");
 
 const makeExpressCallback = require("./../make-express-callback");
 
@@ -28,5 +29,6 @@ router.get("/users/:id", makeExpressCallback({ controller: getUserInfo }));
 router.get("/users", makeExpressCallback({ controller: getUsers }));
 
 router.get("/messages/private/", makeExpressCallback({ controller: getMessagesBetweenTwoUsers }));
+router.post("/messages/", makeExpressCallback({ controller: sendPrivateMessage }));
 
 module.exports = router;
