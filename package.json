@@ -10,7 +10,7 @@
     "test:front": "start-server-and-test 'start-test' http://localhost:3001 'cy:run'",
     "start": "node ./server/index.js",
     "dev": "NODE_ENV=development concurrently --kill-others-on-fail \"cd client && npm start\" \"nodemon ./server/index.js\"",
-    "build:schema": "node server/db/models/index.js",
+    "build:schema": "node server/db/postgreSQL/models/index.js",
     "start-test": "PORT=3001 REACT_APP_REACT_ENV=test concurrently --kill-others-on-fail --kill-others --success first \"cd client && npm start\" \"PORT=3002 NODE_ENV=test node ./server/index.js\"",
     "cy:open": "cypress open",
     "cy:run": "cypress run --record --key 6709e119-ff61-4628-8e96-9531b9faa47a",
