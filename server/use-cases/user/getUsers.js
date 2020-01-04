@@ -1,6 +1,6 @@
 const getUsers = ({
-  userDB,
+  User,
   convertToCamalCase,
-}) => async () => convertToCamalCase(await userDB.getUsers());
+}) => async () => convertToCamalCase(await User.getUsers());
 
 module.exports = getUsers;

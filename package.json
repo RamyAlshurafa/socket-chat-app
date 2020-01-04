@@ -16,7 +16,8 @@
     "cy:run": "cypress run --record --key 6709e119-ff61-4628-8e96-9531b9faa47a",
     "client:init": "cd client && npm i",
     "build": "cd client && npm run build",
-    "test:back": "mocha ./server/**/*.spec.js"
+    "test:back": "mocha ./server/**/*.spec.js",
+    "test": "npm run test:back && npm run test:front"
   },
   "repository": {
     "type": "git",

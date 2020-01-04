@@ -3,12 +3,11 @@
 const { Pool } = require("pg");
 const fs = require("fs");
 
-const config = require("../config");
+const config = require("../../config");
 
 const { env } = config.common;
 const connectionString = config.sqlDatabase.databaseUrl[env];
 
-console.log(connectionString);
 const pool = new Pool({ connectionString });
 
 const getClient = async (callback) => {
@@ -40,6 +39,7 @@ const getClient = async (callback) => {
   client.release = done;
   return client;
 };
+
 module.exports = {
   query: (text, params, callback) => pool.query(text, params),
   // Do not use pool.query if you need transactional integrity

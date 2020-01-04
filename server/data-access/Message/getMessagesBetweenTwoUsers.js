@@ -1,4 +1,4 @@
-const { query } = require("./../../db");
+const { query } = require("./../../db/postgreSQL");
 
 const getMessagesBetweenTwoUsers = async ({ fromId, toId }) => {
   const text = `SELECT message.id,

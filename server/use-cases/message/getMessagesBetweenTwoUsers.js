@@ -1,9 +1,9 @@
 const getMessagesBetweenTwoUsers = ({
-  messageDB,
+  Message,
   convertToCamalCase,
   // TODO validation here
 }) => async ({ fromId, toId }) => convertToCamalCase(
-  await messageDB.getMessagesBetweenTwoUsers({ fromId, toId }),
+  await Message.getMessagesBetweenTwoUsers({ fromId, toId }),
 );
 
 module.exports = getMessagesBetweenTwoUsers;
