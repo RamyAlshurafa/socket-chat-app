@@ -1,13 +1,13 @@
 const debug = require("debug")("server:server");
 const http = require("http");
-
-// read the config file
-// require("dotenv")("./.env");
+const socket = require("./socket");
 
 
 const app = require("./app");
 
 const server = http.createServer(app);
+
+socket(server);
 
 function onListening() {
   const addr = server.address();

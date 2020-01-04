@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,6 +19,7 @@ import "./style.scss";
 function App() {
   const [userInfo, setUserInfo] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [connectedUsersIds, setConnectedUsersIds] = useState([]);
 
   const fetchUserInfo = async () => {
     try {
@@ -32,13 +35,36 @@ function App() {
     fetchUserInfo();
   }, []);
 
+  const connectToSocket = () => {
+    const socket = io();
+    // io.path("/myownpath");
+    socket.on("connect", () => {
+      socket.on("connectedUser", connectedIds => {
+        setConnectedUsersIds(connectedIds);
+      });
+    });
+  };
+
+  const disconnect = () => {
+    const socket = io();
+    socket.emit("disconnect");
+  };
+
+  useEffect(() => {
+    if (userInfo.id) {
+      connectToSocket();
+      return () => disconnect();
+    }
+    return undefined;
+  }, [userInfo.id]);
+
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route exact path="/">
             {isAuthenticated ? (
-              <Chat userInfo={userInfo} />
+              <Chat userInfo={userInfo} connectedUsersIds={connectedUsersIds} />
             ) : (
               <Redirect to="/login" />
             )}

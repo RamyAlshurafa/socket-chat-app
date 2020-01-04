@@ -6,7 +6,7 @@ import ChatSection from "../../components/Chat";
 
 const { CancelToken } = axios;
 
-function Chat({ userInfo }) {
+function Chat({ userInfo, connectedUsersIds }) {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const [users, setUsers] = useState([]);
@@ -39,7 +39,11 @@ function Chat({ userInfo }) {
 
   return (
     <div className="container clearfix">
-      <UsersList setSelectedUser={setSelectedUser} users={users} />
+      <UsersList
+        setSelectedUser={setSelectedUser}
+        users={users}
+        connectedUsersIds={connectedUsersIds}
+      />
       <ChatSection
         selectedUser={toUser}
         fromUserId={userInfo.id}
