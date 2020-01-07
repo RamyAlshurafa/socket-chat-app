@@ -4,16 +4,24 @@ import axios from "axios";
 import Form from "../Form";
 import Button from "../Button";
 
-export default ({ fromUserId, toUserId }) => {
-  const [message, setMessage] = useState(null);
+export default ({ fromUserId, toUserId, pushMessageToHistory }) => {
+  const [message, setMessage] = useState("");
 
   const onSubmit = async event => {
     event.preventDefault();
     try {
-      await axios.post("/api/messages/", {
+      const { data: sentMessage } = await axios.post("/api/messages/", {
         from: fromUserId,
         to: toUserId,
         message,
+      });
+
+      setMessage("");
+
+      pushMessageToHistory({
+        ...sentMessage,
+        fromId: fromUserId,
+        toId: toUserId,
       });
     } catch (error) {
       console.log(error);
@@ -33,6 +41,7 @@ export default ({ fromUserId, toUserId }) => {
           placeholder="Type your message"
           rows="3"
           onChange={onChange}
+          value={message}
         />
         <i className="fa fa-file-o" /> &nbsp;&nbsp;&nbsp;
         <i className="fa fa-file-image-o" />

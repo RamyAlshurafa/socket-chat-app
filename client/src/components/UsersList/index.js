@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Search from "../Search";
 import UserRow from "../UserRow";
 
-export default ({ setSelectedUser, users, connectedUsersIds }) => {
+import { SocketContext } from "../../socket-context";
+
+export default ({ setSelectedUser, users }) => {
+  const { connectedUsersIds } = useContext(SocketContext);
+
   return (
     <div className="people-list" id="people-list">
       <Search />

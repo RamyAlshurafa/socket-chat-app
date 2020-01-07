@@ -1,15 +1,18 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 
 import axios from "axios";
 import UsersList from "../../components/UsersList";
 import ChatSection from "../../components/Chat";
+import { UserContext } from "../../user-context";
 
 const { CancelToken } = axios;
 
-function Chat({ userInfo, connectedUsersIds }) {
+function Chat() {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const [users, setUsers] = useState([]);
+
+  const { userInfo } = useContext(UserContext);
 
   const fetchUsers = useCallback(
     async source => {
@@ -35,14 +38,15 @@ function Chat({ userInfo, connectedUsersIds }) {
     return source.cancel;
   }, [fetchUsers]);
 
-  const toUser = selectedUser || users[0] || {};
+  const toUser =
+    selectedUser || users.filter(({ id }) => id !== userInfo.id)[0] || {};
 
   return (
     <div className="container clearfix">
       <UsersList
         setSelectedUser={setSelectedUser}
         users={users}
-        connectedUsersIds={connectedUsersIds}
+        connectedUsersIds={[]}
       />
       <ChatSection
         selectedUser={toUser}

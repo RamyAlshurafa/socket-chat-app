@@ -1,17 +1,17 @@
 module.exports = ({ sendPrivateMessage }) => async (httpRequest) => {
   try {
     const { from, to, message } = httpRequest.body;
-    const messages = await sendPrivateMessage({
+    const sentMessage = await sendPrivateMessage({
       fromId: from,
       toId: to,
       body: message,
     });
+
     return {
-      body: messages,
+      body: sentMessage,
       statusCode: 200,
     };
   } catch (error) {
-    console.log(error);
     return {
       statusCode: 400,
       body: {
