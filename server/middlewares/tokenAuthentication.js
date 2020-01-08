@@ -4,7 +4,7 @@ module.exports = ({
   secret,
   getCookies,
   parseCookies,
-}) => async (httpRequest) => {
+}) => (httpRequest) => {
   if (!tokenName) {
     throw new Error("tokenName is required");
   }

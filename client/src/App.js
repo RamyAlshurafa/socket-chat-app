@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
+
+import "antd/es/notification/style/css";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,42 +9,22 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import axios from "axios";
-
 import Login from "./pages/Login";
 import Chat from "./pages/Chat";
+import { UserContext } from "./user-context";
 
 import "./App.css";
 import "./style.scss";
 
 function App() {
-  const [userInfo, setUserInfo] = useState({});
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const fetchUserInfo = async () => {
-    try {
-      const { data } = await axios.get("/api/users/auth");
-      setUserInfo(data);
-      setIsAuthenticated(true);
-    } catch (error) {
-      setIsAuthenticated(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
+  const { isAuthenticated } = useContext(UserContext);
 
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route exact path="/">
-            {isAuthenticated ? (
-              <Chat userInfo={userInfo} />
-            ) : (
-              <Redirect to="/login" />
-            )}
+            {isAuthenticated ? <Chat /> : <Redirect to="/login" />}
           </Route>
 
           <Route
@@ -49,11 +32,7 @@ function App() {
             path="/login"
             component={({ history }) =>
               !isAuthenticated ? (
-                <Login
-                  setUserInfo={setUserInfo}
-                  setIsAuthenticated={setIsAuthenticated}
-                  history={history}
-                />
+                <Login history={history} />
               ) : (
                 <Redirect to="/" />
               )

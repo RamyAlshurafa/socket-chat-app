@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 
 import Form from "../../components/Form";
@@ -6,11 +6,14 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Typography from "../../components/Typography";
 
+import { UserContext } from "../../user-context";
 import { Wrapper } from "./style";
 
 const { Paragraph, Anchor } = Typography;
 
-function Login({ setIsAuthenticated, setUserInfo, history }) {
+function Login({ history }) {
+  const { setIsAuthenticated, setUserInfo } = useContext(UserContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ user, setSelectedUser }) => {
+export default ({ user, setSelectedUser, isOnline }) => {
   const onClick = () => {
     setSelectedUser(user);
   };
@@ -17,11 +17,10 @@ export default ({ user, setSelectedUser }) => {
             {user.firstName} {user.lastName}
           </div>
           <div className="status">
-            <i
-              className={`fa fa-circle ${user.online ? "online" : "offline"}`}
-            />
-            {/* TODO : get last seen from backend */}
-            {user.online ? "online" : "left X min ago"}`
+            <i className={`fa fa-circle ${isOnline ? "online" : "offline"}`}>
+              {/* TODO : get last seen from backend */}
+              {isOnline ? "online" : "left X min ago"}
+            </i>
           </div>
         </div>
       </button>
